@@ -92,18 +92,18 @@ export default class App extends Vue {
   }
 
   created () {
-    // utools.onPluginEnter(({ code, payload, type }) => {
-    //   console.log('=== plugin enter ===', code, payload, type)
-    //   this.$set(this.form, 'url', payload)
-    //   this.$nextTick(() => {
-    //     this.parse()
-    //   })
-    // })
-
-    this.$set(this.form, 'url', testUrl)
-    this.$nextTick(() => {
-      this.parse()
+    utools.onPluginEnter(({ code, payload, type }) => {
+      console.log('=== plugin enter ===', code, payload, type)
+      this.$set(this.form, 'url', payload)
+      this.$nextTick(() => {
+        this.parse()
+      })
     })
+
+    // this.$set(this.form, 'url', testUrl)
+    // this.$nextTick(() => {
+    //   this.parse()
+    // })
   }
   parse() {
     const query = url.parse(this.form.url).query
