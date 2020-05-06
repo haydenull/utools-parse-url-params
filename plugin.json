@@ -1,0 +1,24 @@
+{
+  "pluginName": "Url Query",
+  "description": "url参数解析",
+  "main": "index.html",
+  "version": "1.0.0",
+  "author": "陈十二",
+  "preload": "preload.js",
+  "logo": "app-logo.png",
+  "features": [
+    {
+      "code": "default",
+      "explain": "解析 url 参数",
+      "cmds": [
+        "url", "参数", "解析",
+        {
+          "type": "regex",
+          "label": "解析 url 参数",
+          "match":"/^https*:\/\//",
+          "minLength": 1
+        }
+      ]
+    }
+  ]
+}

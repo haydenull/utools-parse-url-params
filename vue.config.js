@@ -1,3 +1,5 @@
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+
 module.exports = {
   publicPath: './',
   // 解决antD   'Inline JavaScript is not enabled'  问题
@@ -10,4 +12,13 @@ module.exports = {
       },
     },
   },
+  configureWebpack: {
+    plugins: [
+      new CopyWebpackPlugin([
+        { from: './plugin.json' },
+        { from: './preload.js' },
+        { from: './README.md' },
+      ]),
+    ],
+  }
 }

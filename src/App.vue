@@ -23,16 +23,9 @@
       </a-form-item>
 
     </a-form>
-    <!-- <a-input-search
-      placeholder="自定义定界符"
-      enter-button="解析"
-      size="large"
-      @search="onSearch"
-    />
-    <br />
-    <br /> -->
-    <a-table :columns="columns" :data-source="data" :pagination="false" :scroll="{ x: 500 }">
-
+    <a-table :columns="columns" :data-source="data" :pagination="false" :scroll="{ x: 600 }">
+      <b slot="index" slot-scope="index">{{ index }}</b>
+      <b slot="key" slot-scope="key">{{ key }}</b>
     </a-table>
   </div>
 </template>
@@ -63,33 +56,54 @@ const testUrl = 'http://beacon.sina.com.cn/b.gif?http%3A//comos.tytest.sina.cn/%
 export default class App extends Vue {
   columns = [
     {
+      title: '序号',
+      dataIndex: 'index',
+      width: 80,
+      key: 'index',
+      fixed: 'left',
+      scopedSlots: { customRender: 'index' },
+    }, {
       title: 'key',
       dataIndex: 'key',
-      key: 'col1',
+      key: 'key',
       width: 100,
       fixed: 'left',
+      scopedSlots: { customRender: 'key' },
     }, {
       title: 'value',
       dataIndex: 'value',
-      key: 'col2',
+      key: 'value',
     }
   ]
   data = [{
+    index: 1,
     key: 'key1',
     value: 'value1',
   }, {
+    index: 2,
     key: 'key2',
     value: 'value2',
   }]
 
   query = ''
   form = {
-    url: testUrl,
+    url: '',
     delimiter: '&',
   }
 
-  mounted () {
-    this.parse()
+  created () {
+    // utools.onPluginEnter(({ code, payload, type }) => {
+    //   console.log('=== plugin enter ===', code, payload, type)
+    //   this.$set(this.form, 'url', payload)
+    //   this.$nextTick(() => {
+    //     this.parse()
+    //   })
+    // })
+
+    this.$set(this.form, 'url', testUrl)
+    this.$nextTick(() => {
+      this.parse()
+    })
   }
   parse() {
     const query = url.parse(this.form.url).query
@@ -97,9 +111,11 @@ export default class App extends Vue {
     const map = qs.parse(query, { delimiter: reg })
     console.log(`=== [Faiz Console:] xxxx ===`, map)
     const resArr: any[] = []
+    let index = 0
     for (const key in map) {
       const value = map[key]
       resArr.push({
+        index: ++index,
         key,
         value,
       })

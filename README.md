@@ -1,24 +1,34 @@
 # utools-parse-url-params
+> url query 参数解析
 
-## Project setup
-```
-npm install
-```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## 示例1
 
-### Lints and fixes files
-```
-npm run lint
+url: `http://sina.cn?a=1&b=2`
+
+定界符: `&`
+
+输出:
+```JavaScript
+{
+  a: 1,
+  b: 2,
+}
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 示例2
+
+url: `http://sina.cn?a=1,b=2`
+
+定界符: `,`
+
+输出:
+```JavaScript
+{
+  a: 1,
+  b: 2,
+}
+```
+
+> Tip: 请注意中英字符
